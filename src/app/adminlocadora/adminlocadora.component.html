@@ -1,0 +1,94 @@
+<header class="flex items-center justify-between">
+  <a href="home">
+    <img
+      src="../../assets/Locadora Ulick white.png"
+      alt="Locadora Ulick"
+      class="w-96 h-36 object-cover"
+    />
+  </a>
+  <div class="drawer drawer-end w-20">
+    <input id="my-drawer-4" type="checkbox" class="drawer-toggle" />
+    <div class="drawer-content">
+      <!-- Page content here -->
+      <label for="my-drawer-4" class="drawer-button btn">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="size-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+          />
+        </svg>
+      </label>
+    </div>
+    <div class="drawer-side">
+      <label
+        for="my-drawer-4"
+        aria-label="close sidebar"
+        class="drawer-overlay"
+      ></label>
+      <ul class="menu bg-base-200 text-base-content min-h-full w-80 p-4">
+        <!-- Sidebar content here -->
+        <p class="flex w-full justify-center border-b p-5 font-bold text-lg">
+          Controle Acervo
+        </p>
+        <li><a href="home/ator">Ator</a></li>
+        <li><a href="home/diretor">Diretor</a></li>
+        <li><a href="home/classe">Classe</a></li>
+        <li><a href="home/titulo">Titulo</a></li>
+        <li><a href="home/item">Item</a></li>
+
+        <p class="flex w-full justify-center border-b p-5 font-bold text-lg">
+          Atendimento Cliente
+        </p>
+        <li><a href="home/locacao">Locação</a></li>
+        <li><a href="home/socio">Sócio</a></li>
+        <li><a href="home/dependente">Dependente</a></li>
+      </ul>
+    </div>
+  </div>
+</header>
+<div class="border-t mx-5"></div>
+<div class="h-[61.1vh] mx-5">
+  <router-outlet />
+</div>
+<footer class="footer bg-base-200 text-base-content p-10">
+  <aside>
+    <img
+      src="../../assets/logolocadora.png"
+      alt=" logo locadora"
+      class="h-20 w-20 object-cover"
+    />
+    <p>
+      Locadora Ulick Ltd.
+      <br />
+      Providing reliable tech since 2024
+    </p>
+  </aside>
+  <nav>
+    <h6 class="footer-title">Controle Acervo</h6>
+    <a class="link link-hover" href="home/ator">Ator</a>
+    <a class="link link-hover" href="home/diretor">Diretor</a>
+    <a class="link link-hover" href="home/classe">Classe</a>
+    <a class="link link-hover" href="home/titulo">Titulo</a>
+    <a class="link link-hover" href="home/item">Item</a>
+  </nav>
+  <nav>
+    <h6 class="footer-title">Atendimento Cliente</h6>
+    <a class="link link-hover" href="home/locacao">Locação</a>
+    <a class="link link-hover" href="home/socio">Sócio</a>
+    <a class="link link-hover" href="home/dependente">Dependente</a>
+  </nav>
+  <nav>
+    <h6 class="footer-title">Sobre</h6>
+    <a class="link link-hover">Sobre a atividade</a>
+    <a class="link link-hover">Back End</a>
+    <a class="link link-hover">Front End</a>
+  </nav>
+</footer>

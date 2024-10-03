@@ -5,12 +5,20 @@ import { ClasseComponent } from './classe/classe.component';
 import { DiretorComponent } from './diretor/diretor.component';
 import { ItemComponent } from './item/item.component';
 import { TituloComponent } from './titulo/titulo.component';
+import { LocacaoComponent } from './locacao/locacao.component';
+import { SocioComponent } from './socio/socio.component';
+import { DependenteComponent } from './dependente/dependente.component';
+import { AdminlocadoraComponent } from './adminlocadora/adminlocadora.component';
 
 export const routes: Routes = [
     {
         path: 'home',
-        component: HomeComponent,
+        component: AdminlocadoraComponent,
         children: [
+            {
+                path: '',
+                component: HomeComponent,
+            },
             {
                 path: 'ator',
                 component: AtorComponent,
@@ -31,6 +39,18 @@ export const routes: Routes = [
                 path: 'titulo',
                 component: TituloComponent,
             },
+            {
+                path: 'locacao',
+                component: LocacaoComponent,
+            },
+            {
+                path: 'socio',
+                component: SocioComponent,
+            },
+            {
+                path: 'dependente',
+                component: DependenteComponent,
+            }
         ],
     },
     {

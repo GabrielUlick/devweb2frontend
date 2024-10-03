@@ -1,1 +1,61 @@
-<p>titulo works!</p>
+<div class="flex items-center p-5 justify-between">
+    <div class="font-bold text-3xl">Titulo</div>
+    <button class="btn btn-outline btn-primary" onclick="my_modal_4.showModal()">Cadastrar Titulo</button>
+  <dialog id="my_modal_4" class="modal">
+    <div class="modal-box w-11/12 max-w-5xl">
+      <h3 class="text-lg font-bold">Cadastro de Titulo!</h3>
+      <label class="form-control w-full">
+          <div class="label">
+            <span class="label-text">Nome</span>
+          </div>
+          <input type="text" placeholder="Type here" class="input input-bordered w-full" />
+        </label>
+        
+      <div class="modal-action">
+          <button class="btn">Cadastrar</button>
+        <form method="dialog">
+          <!-- if there is a button, it will close the modal -->
+          <button class="btn">Cancelar</button>
+        </form>
+      </div>
+    </div>
+  </dialog>
+  </div>
+  <div class="overflow-x-auto px-10">
+    <table class="table table-zebra">
+      <!-- head -->
+      <thead>
+        <tr>
+          <th></th>
+          <th>Nome</th>
+          <th>ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- row 1 -->
+        <tr>
+          <th>1</th>
+          <td>Vinicius Alves</td>
+          <td>excluir atualizar</td>
+        </tr>
+        <!-- row 2 -->
+        <tr>
+          <th>2</th>
+          <td>Gabriel Ulick</td>
+          <td>excluir atualizar</td>
+        </tr>
+        <!-- row 3 -->
+        <tr>
+          <th>3</th>
+          <td>Michael Cury</td>
+          <td>excluir atualizar</td>
+        </tr>
+        <tr>
+          <th>4</th>
+          <td>Breno Henrique Marques Jorge</td>
+          <td>excluir atualizar</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
