@@ -210,8 +210,9 @@ export class TituloComponent {
           this.closeModal();
         },
         error: (err) => {
-          console.error('Erro ao remover título:', err);
-          alert('Erro ao remover título');
+          if (err.status === 500) {
+            alert('O Título possui itens vinculados');
+          }
         },
       });
     }

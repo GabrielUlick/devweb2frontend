@@ -112,8 +112,9 @@ export class ClasseComponent {
           this.closeModal();
         },
         error: (err: HttpErrorResponse) => {
-          console.error('Erro ao remover classe:', err);
-          alert('Erro ao remover classe');
+          if (err.status === 500) {
+            alert('Classe não pode ser excluída pois está associada a um título');
+          }
         }
       });
     }

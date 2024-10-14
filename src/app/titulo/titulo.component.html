@@ -24,7 +24,7 @@
       <tr *ngFor="let titulo of titulo; let i = index">
         <th>{{ i + 1 }}</th>
         <td>{{ titulo.nome }}</td>
-        <td>{{ titulo.ano }}</td>
+        <td>{{ titulo.ano | date : "dd/MM/yyyy" }}</td>
         <td>{{ titulo.sinopse }}</td>
         <td>{{ titulo.categoria }}</td>
         <td>{{ titulo.ator.nome }}</td>

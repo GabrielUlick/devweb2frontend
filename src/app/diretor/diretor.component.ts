@@ -92,8 +92,9 @@ export class DiretorComponent {
           this.closeModal();
         },
         error: (err: HttpErrorResponse) => {
-          console.error('Erro ao remover diretor:', err);
-          alert('Erro ao remover diretor');
+          if (err.status === 500) {
+            alert('Diretor não pode ser excluído pois está associado a um título');
+          }
         }
       });
     }

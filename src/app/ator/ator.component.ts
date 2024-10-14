@@ -99,7 +99,9 @@ export class AtorComponent {
           this.closeModal();
         },
         error: (err: HttpErrorResponse) => {
-          alert(err.error.menssage);
+          if (err.status === 500) {
+            alert('Ator não pode ser excluído pois está associado a um título');
+          }
         },
       });
     }

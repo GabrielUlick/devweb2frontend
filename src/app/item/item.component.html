@@ -20,7 +20,7 @@
       <tr *ngFor="let item of item; let i = index">
         <th>{{ i + 1 }}</th>
         <td>{{ item.numSerie }}</td>
-        <td>{{ item.dtAquisicao }}</td>
+        <td>{{ item.dtAquisicao | date:'dd/MM/yyyy' }}</td>
         <td>{{ item.tipoItem }}</td>
         <td>{{ item.titulo.nome }}</td>
 
