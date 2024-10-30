@@ -106,8 +106,7 @@ export class ItemComponent {
             this.closeModal();
           },
           error: (err: HttpErrorResponse) => {
-            console.error('Erro ao atualizar item:', err);
-            alert('Erro ao atualizar item');
+            this.closeModal();
           },
         });
     } else {
