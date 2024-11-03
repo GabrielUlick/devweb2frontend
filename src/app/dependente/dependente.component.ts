@@ -84,9 +84,9 @@ export class DependenteComponent {
   }
 
   preencherSocios() {
-    this.socioService.listar().subscribe({
+    this.socioService.listarComMenosDe3Dependentes().subscribe({
       next: (response) => {
-        this.socio = response;
+        this.socio = response.filter((socio) => socio.ativo);
       },
       error: (error: HttpErrorResponse) => {
         console.error(error);
@@ -117,6 +117,7 @@ export class DependenteComponent {
         .subscribe({
           next: () => {
             this.listarDependentes();
+            this.preencherSocios();
             this.closeModal();
           },
           error: (error: HttpErrorResponse) => {
@@ -129,6 +130,7 @@ export class DependenteComponent {
         .subscribe({
           next: () => {
             this.listarDependentes();
+            this.preencherSocios();
             this.closeModal();
           },
           error: (err: HttpErrorResponse) => {
@@ -161,6 +163,7 @@ export class DependenteComponent {
       this.dependenteService.remover(this.dependenteID).subscribe({
         next: () => {
           this.listarDependentes();
+          this.preencherSocios();
           this.closeModal();
         },
         error: (error: HttpErrorResponse) => {

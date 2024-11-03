@@ -25,6 +25,6 @@ export class DependenteService {
     }
 
     remover(id: string): Observable<any> {
-        return this.http.delete(`${this.apiUrl}/ativo/${id}`);
+        return this.http.delete(`${this.apiUrl}/${id}`);
     }
 }

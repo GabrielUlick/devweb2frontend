@@ -22,6 +22,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class SocioComponent {
   socio!: Socio[];
   socioID?: string | null;
+  exclusaoLogica = false;
   openModal = false;
   openExcluirModal = false;
   formSocio: FormGroup<{
@@ -148,14 +149,26 @@ export class SocioComponent {
     this.socioID = socio.id;
   }
 
-  removerSocio(socio: Socio) {
+  removerSocio(socio: Socio, exclusaoLogica: boolean) {
     this.openExcluirModal = true;
     this.socioID = socio.id;
+    this.exclusaoLogica = exclusaoLogica;
   }
 
   confirmarExclusao() {
-    if (this.socioID) {
-      this.socioService.remover(this.socioID).subscribe({
+    if (this.socioID && this.exclusaoLogica) {
+      this.socioService.removerLogico(this.socioID!).subscribe({
+        next: () => {
+          this.listarSocios();
+          this.closeModal();
+        },
+        error: (err: HttpErrorResponse) => {
+          console.error('Erro ao remover socio:', err);
+          alert('Erro ao remover socio');
+        },
+      });
+    } else {
+      this.socioService.remover(this.socioID!).subscribe({
         next: () => {
           this.listarSocios();
           this.closeModal();

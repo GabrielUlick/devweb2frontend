@@ -16,6 +16,10 @@ export class SocioService {
         return this.http.get<Socio[]>(this.apiUrl);
     }
 
+    listarComMenosDe3Dependentes(): Observable<Socio[]> {
+        return this.http.get<Socio[]>(`${this.apiUrl}/menosDe3Dependentes`);
+    }
+
     cadastrar(socio: Omit<Socio, 'id'>): Observable<any> {
         return this.http.post(this.apiUrl, socio);
     }
@@ -24,7 +28,11 @@ export class SocioService {
         return this.http.put(`${this.apiUrl}/${socio.id}`, socio);
     }
 
-    remover(id: string): Observable<any> {
+    removerLogico(id: string): Observable<any> {
         return this.http.delete(`${this.apiUrl}/ativo/${id}`);
+    }
+
+    remover(id: string): Observable<any> {
+        return this.http.delete(`${this.apiUrl}/exclusaoGeral/${id}`);
     }
 }
