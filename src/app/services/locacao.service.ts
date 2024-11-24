@@ -27,4 +27,9 @@ export class LocacaoService {
     remover(id: string): Observable<any> {
         return this.http.delete(`${this.apiUrl}/${id}`);
     }
+
+    verificarItemDisponivel(id: string): Observable<boolean> {
+        return this.http.get<boolean>(`${this.apiUrl}/verificarItemDisponivel/${id}`);
+    }
+
 }
