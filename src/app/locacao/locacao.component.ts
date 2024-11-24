@@ -214,6 +214,10 @@ export class LocacaoComponent {
   }
 
   removerLocacao(locacao: Locacao) {
+    if (locacao.dtDevolucaoEfetiva) {
+      alert('A locação já foi paga e não pode ser removida.');
+      return;
+    }
     this.openExcluirModal = true;
     this.locacaoID = locacao.id;
   }
