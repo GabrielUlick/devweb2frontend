@@ -27,4 +27,16 @@ export class TituloService {
     remover(id: string): Observable<any> {
         return this.http.delete(`${this.apiUrl}/${id}`);
     }
+
+    consultarPorNome(nome: string): Observable<Titulo[]> {
+        return this.http.get<Titulo[]>(`${this.apiUrl}/consultarPorNome/${nome}`);
+      }
+    
+      consultarPorCategoria(categoria: string): Observable<Titulo[]> {
+        return this.http.get<Titulo[]>(`${this.apiUrl}/consultarPorCategoria/${categoria}`);
+      }
+    
+      consultarPorAtor(ator: string): Observable<Titulo[]> {
+        return this.http.get<Titulo[]>(`${this.apiUrl}/consultarPorAtor/${ator}`);
+      }
 }
