@@ -7,7 +7,6 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { TableComponent } from '../components/table/table.component';
 import { Locacao } from '../models/locacao';
 import { Cliente } from '../models/cliente';
 import { Item } from '../models/item';
@@ -18,11 +17,12 @@ import { ItemService } from '../services/item.service';
 import { Socio } from '../models/socio';
 import { Dependente } from '../models/dependente';
 import { ClienteService } from '../services/cliente.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-locacao',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, TableComponent, CommonModule],
+  imports: [FormsModule, ReactiveFormsModule, CommonModule],
   templateUrl: './locacao.component.html',
   styleUrl: './locacao.component.css',
 })
@@ -34,6 +34,7 @@ export class LocacaoComponent {
   openModal = false;
   clientes: (Socio | Dependente)[] = [];
   items: Item[] = [];
+  itemId: string = '';
   openExcluirModal = false;
   openEfetuarDevolucaoModal = false;
   formLocacao: FormGroup<{
@@ -62,7 +63,8 @@ export class LocacaoComponent {
     private clienteService: ClienteService,
     private dependenteService: DependenteService,
     private socioService: SocioService,
-    private itemService: ItemService
+    private itemService: ItemService,
+    private route: ActivatedRoute
   ) {
     this.formLocacao = new FormGroup({
       id: new FormControl('', [Validators.required]),
@@ -76,10 +78,40 @@ export class LocacaoComponent {
       multaCobrada: new FormControl(0, null),
       dtDevolucaoEfetiva: new FormControl<Date | null>(null, null),
     });
-  
+
     this.listarLocacoes();
     this.preencherClientes();
     this.preencherItems();
+  }
+
+  ngOnInit() {
+    this.route.params.subscribe((params) => {
+      this.itemId = params['id'];
+      if (this.itemId) {
+        this.verificarDisponibilidade(this.itemId);
+      }
+    });
+  }
+
+  verificarDisponibilidade(itemId: string) {
+    this.locacaoService
+      .verificarItemDisponivel(itemId)
+      .subscribe((naoDisponivel) => {
+        if (naoDisponivel) {
+          alert('Título indisponível');
+        } else {
+          this.openModal = true;
+          this.preencherItemParametro(itemId);
+        }
+      });
+  }
+
+  preencherItemParametro(itemId: string) {
+    this.itemService.buscarPorId(itemId).subscribe((item) => {
+      this.formLocacao.patchValue({
+        item: item,
+      });
+    });
   }
 
   listarLocacoes() {
@@ -129,12 +161,13 @@ export class LocacaoComponent {
     const dtDevolucaoPrevista = this.formLocacao.value.dtDevolucaoPrevista
       ? new Date(this.formLocacao.value.dtDevolucaoPrevista || '')
       : new Date();
-    const dtDevolucaoEfetiva = this.formLocacao.value.dtDevolucaoEfetiva || undefined;
+    const dtDevolucaoEfetiva =
+      this.formLocacao.value.dtDevolucaoEfetiva || undefined;
     const valorCobrado = this.formLocacao.value.valorCobrado || 0;
     const multaCobrada = this.formLocacao.value.multaCobrada || 0;
     const cliente = this.formLocacao.value.cliente;
     const item = this.formLocacao.value.item;
-  
+
     if (!cliente || !item) {
       console.error('Cliente ou item não informado.');
       return;
@@ -242,19 +275,19 @@ export class LocacaoComponent {
     this.formLocacao.reset();
     this.locacaoID = null;
   }
-  
+
   calcularValorELocacao() {
     const cliente = this.formLocacao.value.cliente;
     const item = this.formLocacao.value.item;
-  
+
     if (!cliente || !item) {
       console.error('Cliente ou item não informado.');
       return;
     }
-  
+
     console.log('Cliente selecionado:', cliente.id);
     console.log('Item selecionado:', item.id);
-  
+
     this.clienteService.verificarPendencias(cliente.id).subscribe({
       next: (temPendencias) => {
         if (temPendencias) {
@@ -262,12 +295,12 @@ export class LocacaoComponent {
           alert('Cliente possui pendências.');
           return;
         }
-        
+
         if (!item.titulo || !item.titulo.classe) {
           console.error('Item ou classe do item não informado.');
           return;
         }
-        
+
         this.locacaoService.verificarItemDisponivel(item.id).subscribe({
           next: (naoDisponivel) => {
             console.log('Item disponível:', naoDisponivel);
@@ -278,14 +311,14 @@ export class LocacaoComponent {
             }
 
             this.botaoDesabilitado = false;
-            
+
             const dtLocacao = new Date();
             const valorLocacao = item.titulo.classe.valor;
             const dtDevolucaoPrevista = new Date(dtLocacao);
             dtDevolucaoPrevista.setDate(
               dtDevolucaoPrevista.getDate() + item.titulo.classe.prazoDevolucao
             );
-  
+
             this.formLocacao.patchValue({
               dtLocacao,
               dtDevolucaoPrevista,
@@ -308,26 +341,27 @@ export class LocacaoComponent {
       console.error('ID da locação não informado.');
       return;
     }
-  
-    const locacao = this.locacao.find(l => l.id === this.locacaoID);
+
+    const locacao = this.locacao.find((l) => l.id === this.locacaoID);
     if (!locacao) {
       console.error('Locação não encontrada.');
       return;
     }
-  
+
     const dtDevolucaoEfetiva = new Date();
     const dtDevolucaoPrevista = new Date(locacao.dtDevolucaoPrevista);
     let multaCobrada = 0;
-  
+
     if (dtDevolucaoEfetiva > dtDevolucaoPrevista) {
       const diasAtraso = Math.ceil(
-        (dtDevolucaoEfetiva.getTime() - dtDevolucaoPrevista.getTime()) / (1000 * 60 * 60 * 24)
+        (dtDevolucaoEfetiva.getTime() - dtDevolucaoPrevista.getTime()) /
+          (1000 * 60 * 60 * 24)
       );
-      multaCobrada = diasAtraso * 5; 
+      multaCobrada = diasAtraso * 5;
     }
-  
+
     const valorTotal = locacao.valorCobrado + multaCobrada;
-  
+
     this.locacaoService
       .atualizar({
         ...locacao,

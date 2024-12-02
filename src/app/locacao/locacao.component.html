@@ -39,7 +39,10 @@
         <td>{{ locacao.multaCobrada | currency }}</td>
         <td>{{ locacao.valorCobrado + locacao.multaCobrada | currency }}</td>
         <td class="flex gap-5">
-          <button (click)="confirmarDevolucaoDialog(locacao)" class="hover:text-white/20">
+          <button
+            (click)="confirmarDevolucaoDialog(locacao)"
+            class="hover:text-white/20"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -96,7 +99,7 @@
 @if(openModal) {
 <div class="modal modal-open">
   <div class="modal-box">
-    <h3 class="font-bold text-lg">Cadastrar socio</h3>
+    <h3 class="font-bold text-lg">Realizar Locação</h3>
     <form class="mt-5" [formGroup]="formLocacao" (ngSubmit)="salvarLocacao()">
       <label class="form-control w-full">
         <div class="label">
@@ -106,6 +109,7 @@
           class="select select-bordered"
           formControlName="cliente"
           (change)="calcularValorELocacao()"
+          [value]="formLocacao.get('cliente')?.value"
         >
           <option disabled selected>Selecionar</option>
           <option *ngFor="let cliente of clientes" [ngValue]="cliente">
@@ -121,6 +125,7 @@
           class="select select-bordered"
           formControlName="item"
           (change)="calcularValorELocacao()"
+          [value]="formLocacao.get('item')?.value"
         >
           <option disabled selected>Selecionar</option>
           <option *ngFor="let item of items" [ngValue]="item">
@@ -179,7 +184,11 @@
         <button class="btn" type="cancel" (click)="closeModal()">
           Cancelar
         </button>
-        <button type="submit" class="btn btn-primary" [disabled]="botaoDesabilitado">
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="botaoDesabilitado"
+        >
           Realizar Locação
         </button>
       </div>
@@ -193,9 +202,7 @@
     <h3 class="font-bold text-lg">Excluir locação</h3>
     <p class="mt-5">Deseja realmente excluir a locação?</p>
     <div class="modal-action">
-      <button class="btn" type="cancel" (click)="closeModal()">
-        Cancelar
-      </button>
+      <button class="btn" type="cancel" (click)="closeModal()">Cancelar</button>
       <button class="btn btn-primary" (click)="confirmarExclusao()">
         Excluir
       </button>
@@ -209,9 +216,7 @@
     <h3 class="font-bold text-lg">Efetuar devolução</h3>
     <p class="mt-5">Deseja confirmar a devolução desta locação?</p>
     <div class="modal-action">
-      <button class="btn" type="cancel" (click)="closeModal()">
-        Cancelar
-      </button>
+      <button class="btn" type="cancel" (click)="closeModal()">Cancelar</button>
       <button class="btn btn-primary" (click)="confirmarDevolucao()">
         Confirmar
       </button>

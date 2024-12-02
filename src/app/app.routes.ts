@@ -44,6 +44,10 @@ export const routes: Routes = [
                 component: LocacaoComponent,
             },
             {
+                path: 'locacao/:id',
+                component: LocacaoComponent,
+            },
+            {
                 path: 'socio',
                 component: SocioComponent,
             },

@@ -52,31 +52,39 @@
   
   <div class="carousel rounded-box">
     <div class="carousel-item"></div>
-    <div *ngFor="let titulo of titulos" class="card glass w-96 mb-6 mx-5">
+    <div *ngFor="let item of item" class="card glass w-96 mb-6 mx-5">
       <figure class="flex justify-center">
         <img
           src="../../assets/logolocadora.png"
-          alt="{{ titulo.nome }}"
+          alt="{{ item.titulo.nome }}"
           class="w-1/2 h-1/2 object-contain"
         />
       </figure>
       <div class="card-body p-4">
         <h2 class="card-title text-2xl font-semibold mb-2">
-          {{ titulo.nome }}
+          {{ item.titulo.nome }}
         </h2>
         <div class="mb-2">
           <p class="font-bold">Sinopse:</p>
-          <p>{{ titulo.sinopse }}</p>
+          <p>{{ item.titulo.sinopse }}</p>
         </div>
         <div class="grid grid-cols-2 gap-2">
           <p class="font-bold">Gênero:</p>
-          <p>{{ titulo.categoria }}</p>
+          <p>{{ item.titulo.categoria }}</p>
           <p class="font-bold">Atores:</p>
-          <p>{{ titulo.ator.nome }}</p>
+          <p>{{ item.titulo.ator.nome }}</p>
           <p class="font-bold">Diretor:</p>
-          <p>{{ titulo.diretor.nome }}</p>
+          <p>{{ item.titulo.diretor.nome }}</p>
         </div>
         <div class="divider"></div>
+        <div class="flex justify-between items-center">
+          <p class="text-lg font-semibold">
+            {{ item.titulo.classe.valor | currency }}
+          </p>
+          <button (click)="verDisponibilidade(item.id)" class="btn btn-primary">
+            Ver Disponibilidade
+          </button>
+        </div>
       </div>
     </div>
   </div>

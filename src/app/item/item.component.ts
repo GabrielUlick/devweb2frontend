@@ -17,7 +17,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 @Component({
   selector: 'app-item',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, TableComponent, CommonModule],
+  imports: [FormsModule, ReactiveFormsModule, CommonModule],
   templateUrl: './item.component.html',
   styleUrl: './item.component.css',
 })
